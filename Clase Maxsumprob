@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class Maxsumprob {
+
+	public static void main(String[] args) {
+		menu();
+	}
+	
+	public static void maxSuma (int a[], int size) {
+        int maximoTotal = Integer.MIN_VALUE,
+            maximoHastaAqui = 0, start = 0, end = 0, s = 0;
+ 
+        for (int i = 0; i < size; i++) {
+        	maximoHastaAqui += a[i];
+ 
+            if (maximoTotal < maximoHastaAqui) {
+            	maximoTotal = maximoHastaAqui;
+            	//variables para conocer subarray de maximoTotal
+                start = s;
+                end = i;
+            }
+ 
+            if (maximoHastaAqui < 0) {
+            	maximoHastaAqui = 0;
+                s = i + 1;
+            }
+        }
+        //para imprimir todo
+        System.out.println("Suma max = " + maximoTotal);
+        System.out.print("Subconjunto continuo = {");
+        for(int i = start; i < (end+1); i++) {
+        	if(i== end) {
+        		System.out.print(a[i]);	
+        		break;
+        	}
+        	System.out.print(a[i] + ", ");
+        }
+        System.out.println("}");
+    }
+	
+	public static void menu() {
+		Scanner input = new Scanner(System.in);
+		
+		String jugar = "si";
+		String respuesta;
+		String[] respuestaSplit;
+		int numeros[];
+		
+		while(jugar.equalsIgnoreCase("si")) {
+			
+			//para crear el array con los datos proporcionados
+			System.out.println("Intrduzca los numeros positivos y negtivos elejidos separados por comas: ");
+			respuesta = input.nextLine();
+			respuestaSplit = respuesta.split(","); 
+			numeros = new int[respuestaSplit.length];
+			
+			for (int i = 0; i < respuestaSplit.length; i++) {
+	            numeros[i] = Integer.parseInt(respuestaSplit[i]);
+	        }
+			
+			maxSuma(numeros, respuestaSplit.length);
+			
+			System.out.println("Desea ingresar un array diferente? ");
+			jugar = input.nextLine();
+			
+		}
+		
+		System.out.println("Hasta luego!");
+		
+	}
+
+}
